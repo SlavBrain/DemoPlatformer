@@ -5,10 +5,12 @@ public class CoinsSpawner : MonoBehaviour
     [SerializeField] private Coin coin;
     [SerializeField] private CoinDot[] _coinSpawnDots;
     [SerializeField] private int _maxCoinQuantity = 3;
-    private int _coinCount;
+    [SerializeField] private int _coinCount;
 
     void Start()
     {
+        Coin._onTake.AddListener(RemoveCoin);
+
         _coinSpawnDots = GetComponentsInChildren<CoinDot>();
         _coinCount = 0;
     }
@@ -37,5 +39,10 @@ public class CoinsSpawner : MonoBehaviour
                 isSpawned = true;
             }
         }
+    }
+
+    private void RemoveCoin()
+    {
+        _coinCount--;
     }
 }
